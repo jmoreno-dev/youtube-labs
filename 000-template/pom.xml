@@ -9,9 +9,9 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.jmorenodevs</groupId>
-	<artifactId>template-service</artifactId>
+	<artifactId>000-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>template-service</name>
+	<name>000-template</name>
 
 	<properties>
 		<java.version>21</java.version>
