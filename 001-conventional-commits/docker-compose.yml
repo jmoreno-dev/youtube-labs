@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-db
+    # WARNING: Do not use hardcoded credentials in production environments. Use .env or secrets managers.
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lab_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - lab-network
+
+volumes:
+  postgres-data:
+
+networks:
+  lab-network:
+    driver: bridge
