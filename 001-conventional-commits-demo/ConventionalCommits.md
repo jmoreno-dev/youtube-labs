@@ -21,6 +21,10 @@
 * `ci` — CI/CD
 * `chore` — Maintenance
 
+### Scope
+
+feat(user): added new variable.
+
 ### Breaking Changes
 
 Use `!` or `BREAKING CHANGE:`.
