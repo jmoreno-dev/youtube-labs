@@ -1,6 +1,6 @@
 package org.example;
 
-public class CommitsExample {
+public class CommitsExampleDemo {
 private String name;
 private String email;
 }
