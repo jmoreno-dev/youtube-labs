@@ -36,6 +36,7 @@ BREAKING CHANGE: the response format has changed.
 
 ### Examples
 
+
 ```text
 feat(auth): add JWT authentication
 fix(user): prevent duplicate registration
