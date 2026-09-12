@@ -8,4 +8,4 @@ Here you will find the source code for all the channel's tutorials, focused on b
 
 | 🎬 Episode | 💡 Tutorial Topic | 📂 Source Code |
 | :--- | :--- | :--- |
-| #001 | Network error: Spring Boot and PostgreSQL in Docker | [Go to code](./001-docker-postgres-fix) |
+| #001 | Conventional Commits | [Go to code](./001-conventional-commits) |
