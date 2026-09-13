@@ -9,4 +9,5 @@ Here you will find the source code for all the channel's tutorials, focused on b
 | 🎬 Episode | 💡 Tutorial Topic | 📂 Source Code |
 | :--- | :--- | :--- |
 | #001 | Conventional Commits | [Go to code](./001-conventional-commits) |
-| #002 | DTOs in Spring Boot | [Go to code](./002-DTOs-in-Spring-Boot) |
+| #002 | Entity vs DTO | [Go to code](./002-Entity-vs-DTO) |
+| #003 | DTOs in Spring Boot | [Go to code](./003-DTOs-in-Spring-Boot) |
