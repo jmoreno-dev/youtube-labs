@@ -1,13 +1,20 @@
 package com.josemorenodevs.recordsvsclasses;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.josemorenodevs.recordsvsclasses.domain.Order;
 
-@SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
-	}
+		Order order = new Order(1L);
 
+		System.out.println(order.getStatus());
+
+		order.confirm();
+
+		System.out.println(order.getStatus());
+
+		order.ship();
+
+		System.out.println(order.getStatus());
+	}
 }
