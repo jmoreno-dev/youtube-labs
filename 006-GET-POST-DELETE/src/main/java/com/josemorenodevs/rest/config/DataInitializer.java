@@ -1,7 +1,7 @@
-package com.josemorenodevs.template.config;
+package com.josemorenodevs.rest.config;
 
-import com.josemorenodevs.template.entity.User;
-import com.josemorenodevs.template.repository.UserRepository;
+import com.josemorenodevs.rest.entity.User;
+import com.josemorenodevs.rest.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        User user = new User("jose", "jose@email.com", "123456");
+        User user = new User("jose", "jose@email.com");
         userRepository.save(user);
     }
 }

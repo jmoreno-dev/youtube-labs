@@ -1,4 +1,4 @@
-package com.josemorenodevs.template.entity;
+package com.josemorenodevs.rest.entity;
 
 import jakarta.persistence.*;
 
@@ -16,23 +16,18 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
-
     public User() {
     }
 
-    public User(Long id, String username, String email, String password) {
+    public User(Long id, String username, String email) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password = password;
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        this.password = password;
     }
 
     public Long getId() {
@@ -59,11 +54,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

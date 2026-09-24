@@ -1,7 +1,7 @@
-package com.josemorenodevs.template.service;
+package com.josemorenodevs.rest.service;
 
-import com.josemorenodevs.template.entity.User;
-import com.josemorenodevs.template.repository.UserRepository;
+import com.josemorenodevs.rest.entity.User;
+import com.josemorenodevs.rest.repository.UserRepository;
 
 import java.util.List;
 
@@ -29,7 +29,6 @@ public class UserService {
         User existingUser = findById(id);
         existingUser.setUsername(user.getUsername());
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
         return userRepository.save(existingUser);
     }
 
@@ -40,9 +39,6 @@ public class UserService {
         }
         if (user.getEmail() != null) {
             existingUser.setEmail(user.getEmail());
-        }
-        if (user.getPassword() != null) {
-            existingUser.setPassword(user.getPassword());
         }
         return userRepository.save(existingUser);
     }

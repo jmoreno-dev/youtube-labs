@@ -1,10 +1,10 @@
-package com.josemorenodevs.template.controller;
+package com.josemorenodevs.rest.controller;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import com.josemorenodevs.template.service.UserService;
-import com.josemorenodevs.template.entity.User;
+import com.josemorenodevs.rest.service.UserService;
+import com.josemorenodevs.rest.entity.User;
 
 @RestController
 @RequestMapping("/users")
