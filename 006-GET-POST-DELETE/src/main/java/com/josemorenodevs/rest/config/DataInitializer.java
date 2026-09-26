@@ -18,5 +18,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         User user = new User("jose", "jose@email.com");
         userRepository.save(user);
+        User user2 = new User("jose2", "jose2@email.com");
+        userRepository.save(user2);
     }
 }
