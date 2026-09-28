@@ -14,3 +14,4 @@ Here you will find the source code for all the channel's tutorials, focused on b
 | #004 | PUT vs PATCH | [Go to code](./004-Put-vs-Patch) |
 | #005 | Records vs Class | [Go to code](./005-Records-vs-Class) |
 | #006 | GET, POST & DELETE | [Go to code](./006-GET-POST-DELETE) |
+| #007 | Long, Integer & UUID | [Go to code](./007-Long-Integer-UUID) |
