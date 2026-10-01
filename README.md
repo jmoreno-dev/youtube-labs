@@ -15,3 +15,5 @@ Here you will find the source code for all the channel's tutorials, focused on b
 | #005 | Records vs Class | [Go to code](./005-Records-vs-Class) |
 | #006 | GET, POST & DELETE | [Go to code](./006-GET-POST-DELETE) |
 | #007 | Long, Integer & UUID | [Go to code](./007-Long-Integer-UUID) |
+| #008 | Validations in Spring Boot | [Go to code](./008-Validations-in-Spring-Boot) |
+| #009 | Swagger/OpenAPI | [Go to code](./009-Swagger-OpenAPI) |
