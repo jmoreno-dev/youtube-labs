@@ -2,6 +2,8 @@ package com.josemorenodevs.swaggeropenapi.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,10 @@ public class UserController {
         this.userService = userService;
         this.userMapper = userMapper;
     }
-
+    @ApiResponse(
+            responseCode = "200",
+            description = "User found"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userMapper.toDTO(userService.findById(id)));
