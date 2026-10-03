@@ -2,48 +2,58 @@ package com.josemorenodevs.swaggeropenapi.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.josemorenodevs.swaggeropenapi.dto.UserRequestDTO;
+import com.josemorenodevs.swaggeropenapi.dto.UserResponseDTO;
+import com.josemorenodevs.swaggeropenapi.mapper.UserMapper;
 import com.josemorenodevs.swaggeropenapi.service.UserService;
-import com.josemorenodevs.swaggeropenapi.entity.User;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.findById(id);
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.findById(id)));
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.create(user);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userMapper.toDTO(userService.create(userMapper.toEntity(request))));
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.update(id, user);
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @RequestBody UserRequestDTO request) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.update(id, userMapper.toEntity(request))));
     }
 
     @PatchMapping("/{id}")
-    public User patchUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.patch(id, user);
+    public ResponseEntity<UserResponseDTO> patchUser(@PathVariable Long id, @RequestBody UserRequestDTO request) {
+        return ResponseEntity.ok(userMapper.toDTO(userService.patch(id, userMapper.toEntity(request))));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.findAll().stream().map(userMapper::toDTO).toList());
     }
 
 }
+
