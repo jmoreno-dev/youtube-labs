@@ -3,23 +3,14 @@ package com.josemorenodevs.lombok.entity;
 public class User {
 
     private Long id;
+    private String name;
 
-    private String username;
-
-    private String email;
-
-    public User() {
+    public String getName() {
+        return name;
     }
 
-    public User(Long id, String username, String email) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-    }
-
-    public User(String username, String email) {
-        this.username = username;
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -29,21 +20,4 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 }
