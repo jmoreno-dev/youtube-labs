@@ -5,8 +5,10 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        List<String> tagsList = new ArrayList<>();
-        Set<String> tagsSet = new HashSet<>();
-        Map<Long, String> tagsMap = new HashMap<>();
+        List<String> searches = new ArrayList<>();
+
+        Set<String> uniqueTags = new HashSet<>();
+
+        Map<Long, String> usersById = new HashMap<>();
     }
 }
