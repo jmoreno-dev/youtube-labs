@@ -3,15 +3,16 @@ package com.josemorenodevs.ternary;
 public class Main {
 
     public static void main(String[] args) {
-        boolean isPaid = false;
-        String status = "";
+        int score = 0;
 
-        if (isPaid) {
-            status = "Paid";
+        String category;
+
+        if (score >= 90) {
+            category = "Excellent";
+        } else if (score >= 70) {
+            category = "Pass";
         } else {
-            status = "Pending";
+            category = "Fail";
         }
-
-        System.out.println(status);
     }
 }
