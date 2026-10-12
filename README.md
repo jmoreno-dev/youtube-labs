@@ -19,3 +19,5 @@ Here you will find the source code for all the channel's tutorials, focused on b
 | #009 | Swagger/OpenAPI | [Go to code](./009-Swagger-OpenAPI) |
 | #010 | Enums in Java | [Go to code](./010-Enums-in-Java) |
 | #011 | Lombok | [Go to code](./011-Lombok) |
+| #012 | Ternary in Java | [Go to code](./012-Ternary-in-Java) |
+| #013 | List vs Map vs Set | [Go to code](./013-List-vs-Map-vs-Set) |
