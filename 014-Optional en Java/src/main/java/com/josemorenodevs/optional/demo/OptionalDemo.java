@@ -8,7 +8,6 @@ import com.josemorenodevs.optional.model.Customer;
 import com.josemorenodevs.optional.model.Order;
 
 /**
- * Demo class for video recording:
  * "Stop using if != null in Java: master Optional"
  */
 public class OptionalDemo {
@@ -86,8 +85,7 @@ public class OptionalDemo {
     // Expressing intent directly with Optional
     public User getUserRecommended(Optional<User> userOpt) {
         return userOpt.orElseGet(
-            () -> createDefaultUser()
-        );
+                () -> createDefaultUser());
     }
 
     // =========================================================================
@@ -106,14 +104,12 @@ public class OptionalDemo {
         System.out.println("--- Testing orElse() ---");
         // Java evaluates createDefaultUser() BEFORE calling orElse()
         User user1 = userOpt.orElse(
-            createDefaultUser()
-        );
+                createDefaultUser());
 
         System.out.println("\n--- Testing orElseGet() ---");
         // Evaluated ONLY if the Optional is empty
         User user2 = userOpt.orElseGet(
-            () -> createDefaultUser()
-        );
+                () -> createDefaultUser());
     }
 
     // =========================================================================
@@ -136,14 +132,12 @@ public class OptionalDemo {
     public void demoIfPresent(Optional<User> userOpt) {
         // Conditional action when present
         userOpt.ifPresent(
-            user -> sendNotification(user)
-        );
+                user -> sendNotification(user));
 
         // Action when present, fallback when absent
         userOpt.ifPresentOrElse(
-            user -> sendNotification(user),
-            () -> System.out.println("No user to notify")
-        );
+                user -> sendNotification(user),
+                () -> System.out.println("No user to notify"));
     }
 
     private void sendNotification(User user) {

@@ -8,7 +8,6 @@ import com.josemorenodevs.equals.model.ProductLombok;
 import com.josemorenodevs.equals.model.ProductRecord;
 
 /**
- * Demo class for video recording:
  * "equals() vs == in Java: the trap that breaks your code in production"
  */
 public class EqualsDemo {
@@ -50,7 +49,8 @@ public class EqualsDemo {
     // =========================================================================
 
     public static void integerMystery() {
-        // Autoboxing uses Integer.valueOf(), which caches instances between -128 and 127
+        // Autoboxing uses Integer.valueOf(), which caches instances between -128 and
+        // 127
         Integer a = 100;
         Integer b = 100;
         System.out.println("100 == 100: " + (a == b)); // true (same cached instance)
@@ -109,8 +109,8 @@ public class EqualsDemo {
         Product p1 = new Product(1L, "Keyboard");
         Product p2 = new Product(1L, "Keyboard");
 
-        System.out.println("p1 == p2: " + (p1 == p2));           // false (different reference)
-        System.out.println("p1.equals(p2): " + p1.equals(p2));   // true (when equals is overridden)
+        System.out.println("p1 == p2: " + (p1 == p2)); // false (different reference)
+        System.out.println("p1.equals(p2): " + p1.equals(p2)); // true (when equals is overridden)
 
         // Option 2: Lombok @EqualsAndHashCode
         ProductLombok pl1 = new ProductLombok(1L, "Keyboard");
