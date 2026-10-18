@@ -21,8 +21,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    // ANTIPATRÓN [Sección 8]: Evitar Optional en atributos de entidades JPA
-    // private Optional<String> phone; // Complica la persistencia y el mapeo en JPA
+    // ANTIPATTERN [Section 8]: Avoid Optional as JPA entity fields
+    // private Optional<String> phone; // Complicates JPA persistence and mapping
     private String phone;
 
     public User() {

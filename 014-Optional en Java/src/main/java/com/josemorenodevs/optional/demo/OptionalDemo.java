@@ -3,15 +3,13 @@ package com.josemorenodevs.optional.demo;
 import java.util.Optional;
 
 import com.josemorenodevs.optional.entity.User;
-import com.josemorenodevs.optional.model.Cliente;
-import com.josemorenodevs.optional.model.Direccion;
-import com.josemorenodevs.optional.model.Pedido;
+import com.josemorenodevs.optional.model.Address;
+import com.josemorenodevs.optional.model.Customer;
+import com.josemorenodevs.optional.model.Order;
 
 /**
- * Clase demostrativa para la grabación del vídeo:
- * "Deja de usar if != null en Java: domina Optional"
- * 
- * Cada sección corresponde exactamente a los bloques del guion.
+ * Demo class for video recording:
+ * "Stop using if != null in Java: master Optional"
  */
 public class OptionalDemo {
 
@@ -19,20 +17,20 @@ public class OptionalDemo {
     // [HOOK — 0:00]
     // =========================================================================
 
-    // 1. Tres niveles de if anidados para llegar a un dato
-    public String obtenerCiudadConIfs(Pedido pedido) {
-        if (pedido != null) {
-            if (pedido.getCliente() != null) {
-                if (pedido.getCliente().getDireccion() != null) {
-                    return pedido.getCliente().getDireccion().getCiudad();
+    // 1. Three levels of nested if statements to reach a property
+    public String getCityWithIfs(Order order) {
+        if (order != null) {
+            if (order.getCustomer() != null) {
+                if (order.getCustomer().getAddress() != null) {
+                    return order.getCustomer().getAddress().getCity();
                 }
             }
         }
-        return "Ciudad desconocida";
+        return "Unknown city";
     }
 
-    // 2. El antipatrón equivalente con Optional
-    public User antipatronHook(Optional<User> user) {
+    // 2. The equivalent antipattern with Optional
+    public User antipatternHook(Optional<User> user) {
         if (user.isPresent()) {
             return user.get();
         }
@@ -40,10 +38,10 @@ public class OptionalDemo {
     }
 
     // =========================================================================
-    // [1. QUÉ PROBLEMA RESUELVE OPTIONAL — 0:35]
+    // [1. WHAT PROBLEM DOES OPTIONAL SOLVE — 0:35]
     // =========================================================================
 
-    // Simulación de DAO que devuelve null cuando no encuentra el usuario
+    // Simulating legacy DAO that returns null when user is not found
     public User findUser(Long id) {
         return null; // userDao.findUser(id);
     }
@@ -51,128 +49,128 @@ public class OptionalDemo {
     public void demoNullPointerException() {
         User user = findUser(1L);
 
-        // ¡Peligro de NullPointerException si user es null o getEmail() es null!
+        // Danger of NullPointerException if user is null or getEmail() is null!
         String email = user.getEmail().toLowerCase();
         System.out.println("Email: " + email);
     }
 
     // =========================================================================
-    // [2. CREAR UN OPTIONAL — 1:15]
+    // [2. CREATING AN OPTIONAL — 1:15]
     // =========================================================================
 
-    public void crearOptional() {
-        // 1. Resultado vacío
-        Optional<User> userVacio = Optional.empty();
+    public void createOptional() {
+        // 1. Empty result
+        Optional<User> emptyUser = Optional.empty();
 
-        // 2. Valor existente (no debe ser null; lanza NullPointerException si lo es)
+        // 2. Existing value (must NOT be null; throws NullPointerException if null)
         User existingUser = new User("jose", "jose@email.com");
-        Optional<User> userSeguro = Optional.of(existingUser);
+        Optional<User> safeUser = Optional.of(existingUser);
 
-        // 3. Valor de código legado o fuente que puede devolver null
+        // 3. Value from legacy code or source that might return null
         User userFromLegacyCode = findUser(1L);
-        Optional<User> userNullable = Optional.ofNullable(userFromLegacyCode);
+        Optional<User> nullableUser = Optional.ofNullable(userFromLegacyCode);
     }
 
     // =========================================================================
-    // [3. EL ANTIPATRÓN: ISPRESENT() + GET() — 1:55]
+    // [3. THE ANTIPATTERN: ISPRESENT() + GET() — 1:55]
     // =========================================================================
 
-    // Antipatrón: preguntar si existe y extraerlo
-    public User obtenerUsuarioAntipatron(Optional<User> userOpt) {
+    // Antipattern: asking if present and extracting immediately
+    public User getUserAntipattern(Optional<User> userOpt) {
         if (userOpt.isPresent()) {
             return userOpt.get();
         }
         return createDefaultUser();
     }
 
-    // Expresar la intención directamente con Optional
-    public User obtenerUsuarioRecomendado(Optional<User> userOpt) {
+    // Expressing intent directly with Optional
+    public User getUserRecommended(Optional<User> userOpt) {
         return userOpt.orElseGet(
             () -> createDefaultUser()
         );
     }
 
     // =========================================================================
-    // [4. EL TRUCO DE ORELSE Y ORELSEGET — 2:40]
+    // [4. THE TRICK WITH ORELSE AND ORELSEGET — 2:40]
     // =========================================================================
 
     public static User createDefaultUser() {
-        System.out.println("Creando usuario por defecto");
+        System.out.println("Creating default user");
         return new User("default", "default@email.com");
     }
 
     public static void demoOrElseVsOrElseGet() {
-        // Tenemos un Optional que SÍ contiene un usuario
+        // An Optional that DOES contain a user
         Optional<User> userOpt = Optional.of(new User("jose", "jose@email.com"));
 
-        System.out.println("--- Probando orElse() ---");
-        // Java evalúa createDefaultUser() ANTES de llamar a orElse()
+        System.out.println("--- Testing orElse() ---");
+        // Java evaluates createDefaultUser() BEFORE calling orElse()
         User user1 = userOpt.orElse(
             createDefaultUser()
         );
 
-        System.out.println("\n--- Probando orElseGet() ---");
-        // Solo se evalúa si el Optional está vacío
+        System.out.println("\n--- Testing orElseGet() ---");
+        // Evaluated ONLY if the Optional is empty
         User user2 = userOpt.orElseGet(
             () -> createDefaultUser()
         );
     }
 
     // =========================================================================
-    // [5. EL PODER REAL: MAP Y FILTER — 3:30]
+    // [5. THE REAL POWER: MAP AND FILTER — 3:30]
     // =========================================================================
 
-    public String obtenerCiudadConOptional(Pedido pedido) {
-        return Optional.ofNullable(pedido)
-                .map(Pedido::getCliente)
-                .map(Cliente::getDireccion)
-                .map(Direccion::getCiudad)
+    public String getCityWithOptional(Order order) {
+        return Optional.ofNullable(order)
+                .map(Order::getCustomer)
+                .map(Customer::getAddress)
+                .map(Address::getCity)
                 .filter(c -> !c.isBlank())
-                .orElse("Ciudad desconocida");
+                .orElse("Unknown city");
     }
 
     // =========================================================================
-    // [7. ¿Y ENTONCES NUNCA DEBERÍAMOS USAR ISPRESENT()? — 5:15]
+    // [7. WHEN TO USE ISPRESENT() — 5:15]
     // =========================================================================
 
     public void demoIfPresent(Optional<User> userOpt) {
-        // Ejecutar acción condicional si existe
+        // Conditional action when present
         userOpt.ifPresent(
             user -> sendNotification(user)
         );
 
-        // Si existe ejecuta una acción; si no, ejecuta otra alternativa
+        // Action when present, fallback when absent
         userOpt.ifPresentOrElse(
             user -> sendNotification(user),
-            () -> System.out.println("No hay usuario para notificar")
+            () -> System.out.println("No user to notify")
         );
     }
 
     private void sendNotification(User user) {
-        System.out.println("Enviando notificación a " + user.getEmail());
+        System.out.println("Sending notification to " + user.getEmail());
     }
 
     // =========================================================================
-    // MÉTODO MAIN PARA EJECUTAR EN INTELLIJ
+    // MAIN METHOD TO RUN IN INTELLIJ
     // =========================================================================
 
     public static void main(String[] args) {
         System.out.println("=================================================");
-        System.out.println("DEMO SECCIÓN 4: orElse vs orElseGet");
+        System.out.println("DEMO SECTION 4: orElse vs orElseGet");
         System.out.println("=================================================");
         demoOrElseVsOrElseGet();
 
         System.out.println("\n=================================================");
-        System.out.println("DEMO SECCIÓN 5: map() y filter()");
+        System.out.println("DEMO SECTION 5: map() and filter()");
         System.out.println("=================================================");
         OptionalDemo demo = new OptionalDemo();
 
-        Pedido pedidoCompleto = new Pedido(new Cliente(new Direccion("Madrid")));
-        Pedido pedidoSinDireccion = new Pedido(new Cliente(null));
-        Pedido pedidoNulo = null;
+        Order fullOrder = new Order(new Customer(new Address("Madrid")));
+        Order orderWithoutAddress = new Order(new Customer(null));
+        Order nullOrder = null;
 
-        System.out.println("Pedido completo: " + demo.obtenerCiudadConOptional(pedidoCompleto));
-        System.out.println("Pedido sin dirección: " + demo.obtenerCiudadConOptional(pedidoSinDireccion));
-        System.out.println("Pedido null: " + demo.obtenerCiudadConOptional(pedidoNulo));
+        System.out.println("Full order: " + demo.getCityWithOptional(fullOrder));
+        System.out.println("Order without address: " + demo.getCityWithOptional(orderWithoutAddress));
+        System.out.println("Null order: " + demo.getCityWithOptional(nullOrder));
     }
 }

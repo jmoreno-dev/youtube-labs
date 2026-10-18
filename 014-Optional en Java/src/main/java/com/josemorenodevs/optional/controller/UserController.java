@@ -18,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Flujo en pantalla: Repository -> Optional -> Service -> Excepción si no existe (404)
+    // Flow on screen: Repository -> Optional -> Service -> Exception if not found (404)
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.findById(id);

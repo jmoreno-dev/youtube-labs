@@ -1,13 +1,12 @@
 package com.josemorenodevs.modernswitch.demo;
 
-import com.josemorenodevs.modernswitch.model.Pago;
-import com.josemorenodevs.modernswitch.model.Tarjeta;
-import com.josemorenodevs.modernswitch.model.TipoCliente;
-import com.josemorenodevs.modernswitch.model.Transferencia;
+import com.josemorenodevs.modernswitch.model.BankTransfer;
+import com.josemorenodevs.modernswitch.model.CreditCard;
+import com.josemorenodevs.modernswitch.model.CustomerType;
+import com.josemorenodevs.modernswitch.model.Payment;
 
 /**
- * Clase demostrativa para la grabación del vídeo:
- * "Switch vs if/else en Java: domina el Switch moderno"
+ * "Switch vs if/else in Java: master modern Switch"
  */
 public class SwitchDemo {
 
@@ -15,45 +14,45 @@ public class SwitchDemo {
     // [HOOK — 0:00]
     // =========================================================================
 
-    // Switch clásico con riesgo de fall-through
-    public static double descuentoClasico(TipoCliente tipoCliente) {
-        double descuento;
+    // Classic switch with fall-through risk
+    public static double classicDiscount(CustomerType customerType) {
+        double discount;
 
-        switch (tipoCliente) {
+        switch (customerType) {
             case VIP:
-                descuento = 0.20;
+                discount = 0.20;
                 break;
             case REGULAR:
-                descuento = 0.05;
+                discount = 0.05;
                 break;
             default:
-                descuento = 0.0;
+                discount = 0.0;
         }
 
-        return descuento;
+        return discount;
     }
 
-    // [ELIMINAR EL break DEL CASE VIP]: Provoca fallo silencioso (fall-through)
-    public static double descuentoClasicoSinBreak(TipoCliente tipoCliente) {
-        double descuento;
+    // [REMOVE break FROM CASE VIP]: Causes silent fall-through bug
+    public static double classicDiscountWithoutBreak(CustomerType customerType) {
+        double discount;
 
-        switch (tipoCliente) {
+        switch (customerType) {
             case VIP:
-                descuento = 0.20;
-                // ¡Falta el break! Continúa hacia case REGULAR
+                discount = 0.20;
+                // Missing break! Falls through to case REGULAR
             case REGULAR:
-                descuento = 0.05;
+                discount = 0.05;
                 break;
             default:
-                descuento = 0.0;
+                discount = 0.0;
         }
 
-        return descuento;
+        return discount;
     }
 
-    // Switch moderno como expresión
-    public static double descuentoModerno(TipoCliente tipoCliente) {
-        return switch (tipoCliente) {
+    // Modern switch expression
+    public static double modernDiscount(CustomerType customerType) {
+        return switch (customerType) {
             case VIP -> 0.20;
             case REGULAR -> 0.05;
             default -> 0.0;
@@ -61,149 +60,150 @@ public class SwitchDemo {
     }
 
     // =========================================================================
-    // [2. PRIMER CAMBIO: CASE CON FLECHAS (SENTENCIA SWITCH) — 1:25]
+    // [2. FIRST CHANGE: ARROW CASE (SWITCH STATEMENT) — 1:25]
     // =========================================================================
 
-    public static void ejecutarAcciones(TipoCliente tipoCliente) {
-        // Sentencia switch: ejecuta acciones con flechas sin riesgo de fall-through
-        switch (tipoCliente) {
-            case VIP -> enviarNotificacionVIP();
-            case REGULAR -> registrarOperacion();
-            default -> ignorarOperacion();
+    public static void executeActions(CustomerType customerType) {
+        // Switch statement: executes actions with arrow syntax without fall-through
+        // risk
+        switch (customerType) {
+            case VIP -> sendVipNotification();
+            case REGULAR -> logOperation();
+            default -> ignoreOperation();
         }
     }
 
-    private static void enviarNotificacionVIP() {
-        System.out.println("Enviando notificación prioritaria a VIP");
+    private static void sendVipNotification() {
+        System.out.println("Sending priority notification to VIP");
     }
 
-    private static void registrarOperacion() {
-        System.out.println("Registrando operación habitual");
+    private static void logOperation() {
+        System.out.println("Logging standard operation");
     }
 
-    private static void ignorarOperacion() {
-        System.out.println("Operación omitida por defecto");
+    private static void ignoreOperation() {
+        System.out.println("Operation ignored by default");
     }
 
     // =========================================================================
-    // [3. SWITCH EXPRESSIONS: CUANDO DEVUELVE UN VALOR — 2:10]
+    // [3. SWITCH EXPRESSIONS: RETURNING A VALUE — 2:10]
     // =========================================================================
 
-    public static double switchExpressionAgrupado(TipoCliente tipoCliente) {
-        // Agrupación con comas y variable inmutable (final)
-        final double descuento = switch (tipoCliente) {
-            case VIP, FUNDADOR -> 0.20;
+    public static double groupedSwitchExpression(CustomerType customerType) {
+        // Case grouping with commas and immutable variable (final)
+        final double discount = switch (customerType) {
+            case VIP, FOUNDER -> 0.20;
             case REGULAR -> 0.05;
-            case NUEVO -> 0.10;
+            case NEW -> 0.10;
         };
 
-        return descuento;
+        return discount;
     }
 
     // =========================================================================
-    // [4. ¿Y SI UNA RAMA NECESITA VARIAS INSTRUCCIONES? YIELD — 2:55]
+    // [4. MULTIPLE STATEMENTS IN A BRANCH: YIELD — 2:55]
     // =========================================================================
 
-    public static double switchConYield(TipoCliente tipoCliente) {
-        final double descuento = switch (tipoCliente) {
-            case VIP, FUNDADOR -> 0.20;
+    public static double switchWithYield(CustomerType customerType) {
+        final double discount = switch (customerType) {
+            case VIP, FOUNDER -> 0.20;
             case REGULAR -> 0.05;
-            case NUEVO -> {
-                System.out.println("Log: Aplicando promoción de bienvenida");
-                yield 0.10; // Devuelve el valor del bloque
+            case NEW -> {
+                System.out.println("Log: Applying welcome promotion");
+                yield 0.10; // Yields value from block
             }
         };
 
-        return descuento;
+        return discount;
     }
 
     // =========================================================================
-    // [5. EL TRUCO CON ENUMS: ¿NECESITAS DEFAULT? — 3:40]
+    // [5. THE TRICK WITH ENUMS: DO YOU NEED DEFAULT? — 3:40]
     // =========================================================================
 
-    public static double switchExhaustivoSinDefault(TipoCliente tipoCliente) {
-        // Al cubrir todas las constantes del enum, omitir 'default' es una decisión
-        // deliberada para que el compilador avise si se añade un valor nuevo al enum.
-        return switch (tipoCliente) {
-            case VIP, FUNDADOR -> 0.20;
+    public static double exhaustiveSwitchWithoutDefault(CustomerType customerType) {
+        // When covering all enum constants, omitting 'default' is a deliberate design
+        // decision so the compiler warns us if a new constant is added to the enum.
+        return switch (customerType) {
+            case VIP, FOUNDER -> 0.20;
             case REGULAR -> 0.05;
-            case NUEVO -> 0.10;
+            case NEW -> 0.10;
         };
     }
 
     // =========================================================================
-    // [6. EL SALTO DE JAVA 21: PATTERN MATCHING — 4:30]
+    // [6. THE LEAP IN JAVA 21: PATTERN MATCHING — 4:30]
     // =========================================================================
 
-    // Antes de Java 21: encadenar if / instanceof
-    public static String reciboTradicional(Pago pago) {
-        if (pago instanceof Tarjeta t && t.comision() > 10) {
-            return "Tarjeta con sobrecargo: " + t.numero();
-        } else if (pago instanceof Tarjeta t) {
-            return "Tarjeta estándar: " + t.numero();
-        } else if (pago instanceof Transferencia tr) {
-            return "IBAN: " + tr.iban();
-        } else if (pago == null) {
-            return "Pago no disponible";
+    // Before Java 21: chaining if / instanceof
+    public static String traditionalReceipt(Payment payment) {
+        if (payment instanceof CreditCard c && c.fee() > 10) {
+            return "Card with surcharge: " + c.number();
+        } else if (payment instanceof CreditCard c) {
+            return "Standard card: " + c.number();
+        } else if (payment instanceof BankTransfer bt) {
+            return "IBAN: " + bt.iban();
+        } else if (payment == null) {
+            return "Payment not available";
         }
-        return "Método no soportado";
+        return "Unsupported payment method";
     }
 
-    // En Java 21: Pattern Matching para switch con 'when' y 'case null'
-    public static String reciboConPatternMatching(Pago pago) {
-        return switch (pago) {
-            case null -> "Pago no disponible";
+    // In Java 21: Pattern Matching for switch with 'when' and 'case null'
+    public static String receiptWithPatternMatching(Payment payment) {
+        return switch (payment) {
+            case null -> "Payment not available";
 
-            case Tarjeta t when t.comision() > 10 ->
-                "Tarjeta con sobrecargo: " + t.numero();
+            case CreditCard c when c.fee() > 10 ->
+                "Card with surcharge: " + c.number();
 
-            case Tarjeta t ->
-                "Tarjeta estándar: " + t.numero();
+            case CreditCard c ->
+                "Standard card: " + c.number();
 
-            case Transferencia tr ->
-                "IBAN: " + tr.iban();
+            case BankTransfer bt ->
+                "IBAN: " + bt.iban();
 
-            default -> "Método no soportado";
+            default -> "Unsupported payment method";
         };
     }
 
     // =========================================================================
-    // [7. ¿CUÁNDO UTILIZAR IF, SWITCH O POLIMORFISMO? — 5:25]
+    // [7. WHEN TO USE IF, SWITCH OR POLYMORPHISM? — 5:25]
     // =========================================================================
 
-    public static boolean esAdultoActivo(int edad, boolean activo) {
-        // IF/ELSE es la opción natural para rangos y condiciones booleanas:
-        if (edad >= 18 && activo) {
+    public static boolean isAdultAndActive(int age, boolean active) {
+        // IF/ELSE is the natural choice for ranges and boolean conditions:
+        if (age >= 18 && active) {
             return true;
         }
         return false;
     }
 
     // =========================================================================
-    // MÉTODO MAIN PARA EJECUTAR EN INTELLIJ
+    // MAIN METHOD TO RUN IN INTELLIJ
     // =========================================================================
 
     public static void main(String[] args) {
-        System.out.println("=== [HOOK — 0:00]: EL PELIGRO DEL FALL-THROUGH ===");
-        System.out.println("Descuento VIP (con break): " + descuentoClasico(TipoCliente.VIP));
-        System.out.println("Descuento VIP (¡sin break!): " + descuentoClasicoSinBreak(TipoCliente.VIP));
-        System.out.println("Descuento VIP (Switch moderno): " + descuentoModerno(TipoCliente.VIP));
+        System.out.println("=== [HOOK — 0:00]: THE DANGER OF FALL-THROUGH ===");
+        System.out.println("VIP discount (with break): " + classicDiscount(CustomerType.VIP));
+        System.out.println("VIP discount (without break!): " + classicDiscountWithoutBreak(CustomerType.VIP));
+        System.out.println("VIP discount (Modern Switch): " + modernDiscount(CustomerType.VIP));
 
-        System.out.println("\n=== [2. CASE CON FLECHAS — 1:25] ===");
-        ejecutarAcciones(TipoCliente.VIP);
+        System.out.println("\n=== [2. ARROW CASE (STATEMENT) — 1:25] ===");
+        executeActions(CustomerType.VIP);
 
-        System.out.println("\n=== [4. USO DE YIELD — 2:55] ===");
-        System.out.println("Descuento NUEVO: " + switchConYield(TipoCliente.NUEVO));
+        System.out.println("\n=== [4. USING YIELD — 2:55] ===");
+        System.out.println("NEW discount: " + switchWithYield(CustomerType.NEW));
 
         System.out.println("\n=== [6. JAVA 21: PATTERN MATCHING — 4:30] ===");
-        Pago tarjetaCara = new Tarjeta("4500-1234-5678-9010", 15.0);
-        Pago tarjetaNormal = new Tarjeta("4500-9876-5432-1098", 2.0);
-        Pago transferencia = new Transferencia("ES9121000418450200051332");
-        Pago pagoNulo = null;
+        Payment highFeeCard = new CreditCard("4500-1234-5678-9010", 15.0);
+        Payment standardCard = new CreditCard("4500-9876-5432-1098", 2.0);
+        Payment transfer = new BankTransfer("ES9121000418450200051332");
+        Payment nullPayment = null;
 
-        System.out.println(reciboConPatternMatching(tarjetaCara));
-        System.out.println(reciboConPatternMatching(tarjetaNormal));
-        System.out.println(reciboConPatternMatching(transferencia));
-        System.out.println(reciboConPatternMatching(pagoNulo));
+        System.out.println(receiptWithPatternMatching(highFeeCard));
+        System.out.println(receiptWithPatternMatching(standardCard));
+        System.out.println(receiptWithPatternMatching(transfer));
+        System.out.println(receiptWithPatternMatching(nullPayment));
     }
 }

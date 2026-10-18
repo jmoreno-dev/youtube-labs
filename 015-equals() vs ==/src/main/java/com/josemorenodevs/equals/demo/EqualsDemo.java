@@ -2,14 +2,14 @@ package com.josemorenodevs.equals.demo;
 
 import java.util.Objects;
 
-import com.josemorenodevs.equals.model.EstadoPedido;
-import com.josemorenodevs.equals.model.Producto;
-import com.josemorenodevs.equals.model.ProductoLombok;
-import com.josemorenodevs.equals.model.ProductoRecord;
+import com.josemorenodevs.equals.model.OrderStatus;
+import com.josemorenodevs.equals.model.Product;
+import com.josemorenodevs.equals.model.ProductLombok;
+import com.josemorenodevs.equals.model.ProductRecord;
 
 /**
- * Clase demostrativa para la grabación del vídeo:
- * "equals() vs == en Java: la trampa que rompe tu código en producción"
+ * Demo class for video recording:
+ * "equals() vs == in Java: the trap that breaks your code in production"
  */
 public class EqualsDemo {
 
@@ -26,144 +26,144 @@ public class EqualsDemo {
         Integer x = 200;
         Integer y = 200;
 
-        System.out.println(x == y); // normalmente false
+        System.out.println(x == y); // typically false
     }
 
     // =========================================================================
-    // [1. QUÉ COMPARA REALMENTE == — 0:40]
+    // [1. WHAT == ACTUALLY COMPARES — 0:40]
     // =========================================================================
 
-    public static void compararPrimitivosVsObjetos() {
-        // Primitivos: compara valores numéricos
+    public static void comparePrimitivesVsObjects() {
+        // Primitives: compares numerical values
         int a = 100;
         int b = 100;
         System.out.println(a == b); // true
 
-        // Objetos: compara identidad (referencias en memoria)
+        // Objects: compares identity (memory references)
         String s1 = new String("Java");
         String s2 = new String("Java");
         System.out.println(s1 == s2); // false
     }
 
     // =========================================================================
-    // [2. EL MISTERIO DE INTEGER — 1:35]
+    // [2. THE MYSTERY OF INTEGER — 1:35]
     // =========================================================================
 
-    public static void misterioInteger() {
-        // Autoboxing usa Integer.valueOf() que tiene caché entre -128 y 127
+    public static void integerMystery() {
+        // Autoboxing uses Integer.valueOf(), which caches instances between -128 and 127
         Integer a = 100;
         Integer b = 100;
-        System.out.println("100 == 100: " + (a == b)); // true (misma instancia en caché)
+        System.out.println("100 == 100: " + (a == b)); // true (same cached instance)
 
         Integer x = 200;
         Integer y = 200;
-        System.out.println("200 == 200 (con ==): " + (x == y)); // false (distintas instancias)
+        System.out.println("200 == 200 (using ==): " + (x == y)); // false (different instances)
 
-        // Solución: comparar valor lógico con equals()
+        // Solution: compare logical value with equals()
         System.out.println("200.equals(200): " + x.equals(y)); // true
     }
 
     // =========================================================================
-    // [3. QUÉ OCURRE CON LOS STRINGS — 2:25]
+    // [3. WHAT HAPPENS WITH STRINGS — 2:25]
     // =========================================================================
 
     public static void strings() {
-        // String Pool: literales idénticos reutilizan la misma instancia
+        // String Pool: identical string literals reuse the same instance
         String s1 = "Java";
         String s2 = "Java";
-        System.out.println("Literales (==): " + (s1 == s2)); // true
+        System.out.println("Literals (==): " + (s1 == s2)); // true
 
-        // new String() crea explícitamente otro objeto en el heap
+        // new String() explicitly creates a separate object on the heap
         String s3 = new String("Java");
         System.out.println("Literal vs new String (==): " + (s1 == s3)); // false
 
-        // La regla: compara el contenido con equals()
+        // Rule: compare content using equals()
         System.out.println("s1.equals(s3): " + s1.equals(s3)); // true
     }
 
     // =========================================================================
-    // [4. EL CASO REAL: IDS EN SPRING BOOT — 3:15]
+    // [4. REAL WORLD CASE: IDS IN SPRING BOOT — 3:15]
     // =========================================================================
 
-    public static void idsSpringBoot() {
+    public static void springBootIds() {
         Long id1 = 128L;
         Long id2 = 128L;
 
-        // Incorrecto: compara referencias Long (128 está fuera de caché en Long)
+        // Incorrect: compares Long references (128 is outside LongCache default range)
         System.out.println("id1 == id2: " + (id1 == id2)); // false
 
-        // Correcto y seguro frente a null:
+        // Correct and null-safe:
         System.out.println("Objects.equals(id1, id2): " + Objects.equals(id1, id2)); // true
 
-        Long idNulo1 = null;
-        Long idNulo2 = null;
-        System.out.println("Objects.equals(null, null): " + Objects.equals(idNulo1, idNulo2)); // true
+        Long nullId1 = null;
+        Long nullId2 = null;
+        System.out.println("Objects.equals(null, null): " + Objects.equals(nullId1, nullId2)); // true
     }
 
     // =========================================================================
-    // [5 y 6. PRODUCTO: EQUALS EN CLASES PROPIAS — 4:05 & 4:50]
+    // [5 and 6. CUSTOM OBJECTS AND EQUALS — 4:05 & 4:50]
     // =========================================================================
 
-    public static void objetosPersonalizados() {
-        // Clase tradicional Producto con equals() y hashCode()
-        Producto p1 = new Producto(1L, "Teclado");
-        Producto p2 = new Producto(1L, "Teclado");
+    public static void customObjects() {
+        // Traditional Product class with equals() and hashCode()
+        Product p1 = new Product(1L, "Keyboard");
+        Product p2 = new Product(1L, "Keyboard");
 
-        System.out.println("p1 == p2: " + (p1 == p2));           // false (distinta referencia)
-        System.out.println("p1.equals(p2): " + p1.equals(p2));   // true (si sobrescribe equals)
+        System.out.println("p1 == p2: " + (p1 == p2));           // false (different reference)
+        System.out.println("p1.equals(p2): " + p1.equals(p2));   // true (when equals is overridden)
 
-        // Opción 2: Lombok @EqualsAndHashCode
-        ProductoLombok pl1 = new ProductoLombok(1L, "Teclado");
-        ProductoLombok pl2 = new ProductoLombok(1L, "Teclado");
+        // Option 2: Lombok @EqualsAndHashCode
+        ProductLombok pl1 = new ProductLombok(1L, "Keyboard");
+        ProductLombok pl2 = new ProductLombok(1L, "Keyboard");
         System.out.println("Lombok pl1.equals(pl2): " + pl1.equals(pl2)); // true
 
-        // Opción 3: Record (genera equals y hashCode automáticamente)
-        ProductoRecord pr1 = new ProductoRecord(1L, "Teclado");
-        ProductoRecord pr2 = new ProductoRecord(1L, "Teclado");
+        // Option 3: Record (automatically generates equals and hashCode)
+        ProductRecord pr1 = new ProductRecord(1L, "Keyboard");
+        ProductRecord pr2 = new ProductRecord(1L, "Keyboard");
         System.out.println("Record pr1.equals(pr2): " + pr1.equals(pr2)); // true
     }
 
     // =========================================================================
-    // [7. CUÁNDO SÍ UTILIZAR == CON OBJETOS — 5:35]
+    // [7. WHEN TO USE == WITH OBJECTS — 5:35]
     // =========================================================================
 
     public static void enums() {
-        EstadoPedido estado = EstadoPedido.ENVIADO;
+        OrderStatus status = OrderStatus.SENT;
 
-        // Con enums, '==' es idiomático, seguro e insensible a null
-        if (estado == EstadoPedido.ENVIADO) {
-            System.out.println("Estado es ENVIADO (comparación con ==)");
+        // With enums, '==' is idiomatic, safe, and null-friendly
+        if (status == OrderStatus.SENT) {
+            System.out.println("Status is SENT (comparison with ==)");
         }
 
-        EstadoPedido estadoNulo = null;
-        // No lanza NullPointerException: devuelve false directamente
-        System.out.println("null == ENVIADO: " + (estadoNulo == EstadoPedido.ENVIADO)); // false
+        OrderStatus nullStatus = null;
+        // Does NOT throw NullPointerException: safely evaluates to false
+        System.out.println("null == SENT: " + (nullStatus == OrderStatus.SENT)); // false
     }
 
     // =========================================================================
-    // MÉTODO MAIN PARA EJECUTAR EN INTELLIJ
+    // MAIN METHOD TO RUN IN INTELLIJ
     // =========================================================================
 
     public static void main(String[] args) {
         System.out.println("=== [HOOK — 0:00] ===");
         hook();
 
-        System.out.println("\n=== [1. PRIMITIVOS VS OBJETOS — 0:40] ===");
-        compararPrimitivosVsObjetos();
+        System.out.println("\n=== [1. PRIMITIVES VS OBJECTS — 0:40] ===");
+        comparePrimitivesVsObjects();
 
-        System.out.println("\n=== [2. MISTERIO DE INTEGER — 1:35] ===");
-        misterioInteger();
+        System.out.println("\n=== [2. THE MYSTERY OF INTEGER — 1:35] ===");
+        integerMystery();
 
-        System.out.println("\n=== [3. STRINGS Y STRING POOL — 2:25] ===");
+        System.out.println("\n=== [3. STRINGS AND STRING POOL — 2:25] ===");
         strings();
 
-        System.out.println("\n=== [4. IDS EN SPRING BOOT — 3:15] ===");
-        idsSpringBoot();
+        System.out.println("\n=== [4. IDS IN SPRING BOOT — 3:15] ===");
+        springBootIds();
 
-        System.out.println("\n=== [5 y 6. PRODUCTO Y EQUALS — 4:05] ===");
-        objetosPersonalizados();
+        System.out.println("\n=== [5 and 6. PRODUCT AND EQUALS — 4:05] ===");
+        customObjects();
 
-        System.out.println("\n=== [7. ENUMS CON == — 5:35] ===");
+        System.out.println("\n=== [7. ENUMS WITH == — 5:35] ===");
         enums();
     }
 }
