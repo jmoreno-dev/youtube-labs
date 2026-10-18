@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.josemorenodevs</groupId>
-	<artifactId>template</artifactId>
+	<artifactId>switch-vs-ifelse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>switch-vs-ifelse</name>
+	<description>Demo Switch vs if-else en Java moderno</description>
 	<url/>
 	<licenses>
 		<license/>
