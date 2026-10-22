@@ -12,10 +12,6 @@ import com.josemorenodevs.optional.model.Order;
  */
 public class OptionalDemo {
 
-    // =========================================================================
-    // [HOOK — 0:00]
-    // =========================================================================
-
     // 1. Three levels of nested if statements to reach a property
     public String getCityWithIfs(Order order) {
         if (order != null) {

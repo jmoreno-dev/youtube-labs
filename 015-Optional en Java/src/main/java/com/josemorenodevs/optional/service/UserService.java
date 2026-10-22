@@ -22,13 +22,15 @@ public class UserService {
                         () -> new UserNotFoundException(id));
     }
 
-    // Java 10+ alternative: orElseThrow() with no arguments (throws NoSuchElementException)
+    // Java 10+ alternative: orElseThrow() with no arguments (throws
+    // NoSuchElementException)
     public User findByIdJava10(Long id) {
         return userRepository.findById(id)
                 .orElseThrow();
     }
 
-    // ANTIPATTERN [8. WHERE TO AVOID OPTIONAL — 5:50]
-    // Avoid Optional as method parameters. Overload or pass the value directly instead.
+    // ANTIPATTERN
+    // Avoid Optional as method parameters. Overload or pass the value directly
+    // instead.
     // public void findUser(Optional<Long> id) { ... }
 }
