@@ -6,10 +6,6 @@ import java.nio.file.Path;
 
 public class ThrowVsThrowsDemo {
 
-    // =========================================================================
-    // [HOOK — 0:00]
-    // =========================================================================
-
     // 1. throw: instrucción que lanza una instancia de excepción
     public static void throwExample() {
         throw new IllegalArgumentException("Error");
@@ -22,7 +18,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [1. QUÉ HACE REALMENTE THROW — 0:35]
+    // [1. QUÉ HACE REALMENTE THROW]
     // =========================================================================
 
     public static void validateAge(int age) {
@@ -34,7 +30,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [2. QUÉ HACE THROWS — 1:25]
+    // [2. QUÉ HACE THROWS]
     // =========================================================================
 
     // throws IOException: forma parte del contrato del método.
@@ -44,7 +40,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [3. EL MATIZ IMPORTANTE: CHECKED VS UNCHECKED — 2:15]
+    // [3. EL MATIZ IMPORTANTE: CHECKED VS UNCHECKED]
     // =========================================================================
 
     // Checked Exception (IOException):
@@ -62,7 +58,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [4. CÓMO SE RELACIONAN THROW Y THROWS — 3:10]
+    // [4. CÓMO SE RELACIONAN THROW Y THROWS]
     // =========================================================================
 
     // Ambos colaboran en el mismo método con responsabilidades distintas:
@@ -77,7 +73,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [5. EL CASO REAL: QUÉ HACER EN UNA APLICACIÓN BACKEND — 4:00]
+    // [5. EL CASO REAL: QUÉ HACER EN UNA APLICACIÓN BACKEND]
     // =========================================================================
 
     // Opción 1: Gestionar la excepción en el propio método con try-catch
@@ -95,7 +91,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [6. EL ERROR QUE DEBES EVITAR — 4:55]
+    // [6. EL ERROR QUE DEBES EVITAR]
     // =========================================================================
 
     // Error habitual: declarar innecesariamente una excepción no comprobada
@@ -113,7 +109,7 @@ public class ThrowVsThrowsDemo {
     }
 
     // =========================================================================
-    // [CIERRE — 5:30]: RESUMEN Y EJECUCIÓN PRÁCTICA
+    // RESUMEN Y EJECUCIÓN PRÁCTICA
     // =========================================================================
 
     public static void main(String[] args) {

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
- * [5. EL CASO REAL: QUÉ HACER EN UNA APLICACIÓN BACKEND — 4:00]
+ * [5. EL CASO REAL: QUÉ HACER EN UNA APLICACIÓN BACKEND]
  * Manejador global centralizado de excepciones en Spring Boot.
  * Al propagar excepciones con throws (o dejar volar las unchecked con throw),
  * este componente centraliza la respuesta de error HTTP.
@@ -24,8 +24,7 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now().toString(),
                 "status", HttpStatus.BAD_REQUEST.value(),
                 "error", "Bad Request",
-                "message", ex.getMessage()
-        ));
+                "message", ex.getMessage()));
     }
 
     @ExceptionHandler(IOException.class)
@@ -34,7 +33,6 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now().toString(),
                 "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "error", "Internal Server Error",
-                "message", "Error al acceder al archivo de configuración: " + ex.getMessage()
-        ));
+                "message", "Error al acceder al archivo de configuración: " + ex.getMessage()));
     }
 }
