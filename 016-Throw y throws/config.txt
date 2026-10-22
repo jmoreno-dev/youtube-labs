@@ -1,0 +1,4 @@
+app.name=ThrowVsThrowsDemo
+app.version=1.0.0
+app.environment=production
+app.description=Demo de lectura de configuracion con Java 17

@@ -1,4 +1,4 @@
-package com.josemorenodevs.modernswitch;
+package com.josemorenodevs.throwvsthrows;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
