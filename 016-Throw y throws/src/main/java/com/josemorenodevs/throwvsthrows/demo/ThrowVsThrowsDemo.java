@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/**
- * =============================================================================
- * GUION: throw vs throws en Java: No vuelvas a confundirlos
- * Duración: 5–6 minutos | Versión: Java 17 | IntelliJ al 200%
- * =============================================================================
- */
 public class ThrowVsThrowsDemo {
 
     // =========================================================================
@@ -17,12 +11,12 @@ public class ThrowVsThrowsDemo {
     // =========================================================================
 
     // 1. throw: instrucción que lanza una instancia de excepción
-    public static void hookThrowExample() {
+    public static void throwExample() {
         throw new IllegalArgumentException("Error");
     }
 
     // 2. throws: cláusula en la firma del método que declara propagación
-    public static void hookThrowsExample() throws IOException {
+    public static void throwsExample() throws IOException {
         // ... operación que puede propagar IOException ...
         Files.readString(Path.of("config.txt"));
     }
@@ -73,7 +67,8 @@ public class ThrowVsThrowsDemo {
 
     // Ambos colaboran en el mismo método con responsabilidades distintas:
     // - throw lanza la excepción de validación (unchecked).
-    // - throws declara que la operación de I/O puede propagar una checked exception.
+    // - throws declara que la operación de I/O puede propagar una checked
+    // exception.
     public static String readFile(Path path) throws IOException {
         if (path == null) {
             throw new IllegalArgumentException("La ruta no puede ser null");
