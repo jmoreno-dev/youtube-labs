@@ -15,22 +15,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // [6. OPTIONAL IN SPRING BOOT — 4:35]
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(
                         () -> new UserNotFoundException(id));
     }
 
-    // Java 10+ alternative: orElseThrow() with no arguments (throws
-    // NoSuchElementException)
-    public User findByIdJava10(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow();
-    }
 
-    // ANTIPATTERN
-    // Avoid Optional as method parameters. Overload or pass the value directly
-    // instead.
-    // public void findUser(Optional<Long> id) { ... }
 }
