@@ -12,10 +12,6 @@ import com.josemorenodevs.equals.model.ProductRecord;
  */
 public class EqualsDemo {
 
-    // =========================================================================
-    // [HOOK — 0:00]
-    // =========================================================================
-
     public static void hook() {
         Integer a = 100;
         Integer b = 100;

@@ -2,12 +2,6 @@ package com.josemorenodevs.equals.model;
 
 import lombok.EqualsAndHashCode;
 
-/**
- * [6. HOW WE DEFINE EQUALITY — 4:50 - Option 2: Lombok]
- * 
- * @EqualsAndHashCode automatically generates equals() and hashCode()
- * for all non-static fields.
- */
 @EqualsAndHashCode
 public class ProductLombok {
 

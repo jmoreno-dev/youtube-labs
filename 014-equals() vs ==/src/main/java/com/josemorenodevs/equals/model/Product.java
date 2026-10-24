@@ -2,14 +2,6 @@ package com.josemorenodevs.equals.model;
 
 import java.util.Objects;
 
-/**
- * [5. THE SURPRISE: EQUALS CAN ALSO COMPARE REFERENCES — 4:05]
- * 
- * If equals() is not overridden, it inherits the implementation from Object (this == obj).
- * 
- * [6. HOW WE DEFINE EQUALITY — 4:50 - Option 1]
- * By overriding equals() and hashCode(), we define equality by logical value.
- */
 public class Product {
 
     private Long id;
@@ -28,8 +20,6 @@ public class Product {
         return name;
     }
 
-    // --- OPTION 1: Implement equals() and hashCode() manually ---
-    // (Comment or uncomment to show the difference during recording)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
