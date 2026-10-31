@@ -1,6 +1,7 @@
 package com.josemorenodevs.throwvsthrows.demo;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -33,6 +34,8 @@ public class ThrowVsThrowsDemo {
     // [2. QUÉ HACE THROWS]
     // =========================================================================
 
+    // Hook del guion: quitar temporalmente 'throws IOException' para mostrar
+    // el error "Unhandled exception: java.io.IOException" y restaurarlo después.
     // throws IOException: forma parte del contrato del método.
     // Avisa a quien llame que debe capturar o volver a declarar esta excepción.
     public static String readFile() throws IOException {
@@ -47,6 +50,16 @@ public class ThrowVsThrowsDemo {
     // El compilador exige try-catch O declararla con throws en la firma.
     public static String readCheckedExample() throws IOException {
         return Files.readString(Path.of("config.txt"));
+    }
+
+    // Alternativa con try-catch: transforma la checked en una unchecked.
+    // El problema del archivo sigue existiendo y la causa original se conserva.
+    public static String readFileWithUncheckedException() {
+        try {
+            return Files.readString(Path.of("config.txt"));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     // Unchecked Exception (IllegalArgumentException / RuntimeException):
@@ -76,7 +89,7 @@ public class ThrowVsThrowsDemo {
     // [5. EL CASO REAL: QUÉ HACER EN UNA APLICACIÓN BACKEND]
     // =========================================================================
 
-    // Opción 1: Gestionar la excepción en el propio método con try-catch
+    // Opción 1: Capturar si la configuración es opcional y podemos continuar.
     public static String readConfigWithCatch() {
         try {
             return Files.readString(Path.of("config.txt"));
@@ -137,6 +150,13 @@ public class ThrowVsThrowsDemo {
             System.out.println("-> Archivo leído correctamente:\n" + content.trim());
         } catch (IOException ex) {
             System.out.println("-> Capturada IOException declarada con throws: " + ex.getMessage());
+        }
+
+        System.out.println("\n--- [3. CHECKED VS UNCHECKED] ---");
+        try {
+            System.out.println(readFileWithUncheckedException().trim());
+        } catch (UncheckedIOException ex) {
+            System.out.println("-> IOException envuelta en UncheckedIOException: " + ex.getCause());
         }
 
         // 3. throw y throws juntos en un único método
