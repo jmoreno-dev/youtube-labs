@@ -6,7 +6,8 @@ import com.josemorenodevs.modernswitch.model.CustomerType;
 import com.josemorenodevs.modernswitch.model.Payment;
 
 /**
- * "Switch vs if/else in Java: master modern Switch"
+ * Switch vs if/else: ejemplos base compatibles con Java 17.
+ * Esta clase requiere Java 21 por receiptWithPatternMatching (when y case null).
  */
 public class SwitchDemo {
 
@@ -192,9 +193,17 @@ public class SwitchDemo {
         System.out.println("\n=== [2. ARROW CASE (STATEMENT) — 1:25] ===");
         executeActions(CustomerType.VIP);
 
+        System.out.println("\n=== [3. SWITCH EXPRESSIONS: GROUPED CASES AND FINAL] ===");
+        for (CustomerType customerType : CustomerType.values()) {
+            System.out.println(customerType + ": " + groupedSwitchExpression(customerType));
+        }
         System.out.println("\n=== [4. USING YIELD — 2:55] ===");
         System.out.println("NEW discount: " + switchWithYield(CustomerType.NEW));
 
+        System.out.println("\n=== [5. EXHAUSTIVE ENUM WITHOUT DEFAULT] ===");
+        // Para grabar el error: añadir COMPANY al enum y recompilar.
+        // Restaurar después las cuatro constantes originales.
+        System.out.println("FOUNDER discount: " + exhaustiveSwitchWithoutDefault(CustomerType.FOUNDER));
         System.out.println("\n=== [6. JAVA 21: PATTERN MATCHING — 4:30] ===");
         Payment highFeeCard = new CreditCard("4500-1234-5678-9010", 15.0);
         Payment standardCard = new CreditCard("4500-9876-5432-1098", 2.0);
@@ -205,5 +214,9 @@ public class SwitchDemo {
         System.out.println(receiptWithPatternMatching(standardCard));
         System.out.println(receiptWithPatternMatching(transfer));
         System.out.println(receiptWithPatternMatching(nullPayment));
+        System.out.println("\n=== [7. IF: RANGES AND BOOLEAN CONDITIONS — JAVA 17] ===");
+        System.out.println("Adult and active: " + isAdultAndActive(18, true));
+        System.out.println("Minor and active: " + isAdultAndActive(17, true));
+        System.out.println("Adult and inactive: " + isAdultAndActive(18, false));
     }
 }
